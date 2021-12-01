@@ -1,0 +1,44 @@
+{% extends 'chat/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <section class="section">
+        <div class="columns">
+                <div class="column is-hidden-mobile">
+                    <img style="height: 90vh;" src="https://images.pexels.com/photos/2179483/pexels-photo-2179483.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+                </div>
+                <div class="column is-one-third-desktop">
+                    <div class="box" style="height: 90vh;">
+                        <div class="card-content">
+                            <p class="title">Login</p>
+                            <hr>
+                            {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            
+                            <form method="post">
+                                {% csrf_token %}
+                                <br>
+                                {{ form|crispy }}
+                                <br>
+                                <div class="control">
+                                    <input type=submit class="button is-link" value="Submit"></button>
+                                </div>
+                            </form>
+                        </div>
+                        <footer class="card-footer">
+                            <p class="card-footer-item">
+                                <span>
+                                    Don't have an account? <a href="{% url 'chat:register' %}">Sign-up</a>
+                                </span>
+                            </p>
+                        </footer>
+                    </div>
+                </div> 
+            </div>
+    </section>
+{% endblock content %}
